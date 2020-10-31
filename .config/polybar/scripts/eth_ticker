@@ -1,0 +1,8 @@
+#!/usr/bin/env python3
+
+import requests
+
+r = requests.get('https://api.coinone.co.kr/ticker/?currency=eth')
+ticker = r.json()
+
+print('%d원' % float(ticker['last']))
