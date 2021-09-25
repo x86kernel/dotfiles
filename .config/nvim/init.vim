@@ -34,7 +34,6 @@ Plug 'janko-m/vim-test'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-
 Plug 'gantheory/vim-easymotion'
 Plug 'nathanaelkane/vim-indent-guides'
 
@@ -56,6 +55,8 @@ Plug 'ntpeters/vim-better-whitespace'
 
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'kristijanhusak/vim-js-file-import', { 'do': 'npm install' }
+
+Plug 'Vimjas/vim-python-pep8-indent'
 
 call plug#end()
 
@@ -116,13 +117,13 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 
 set guifont=SauceCodePro\ Nerd\ Font\ Types\ 11
-set autochdir
 let g:NERDTreeChDirMode = 2
 
 " let g:deoplete#enable_at_startup=1
 
 " airline setting
 
+let g:loaded_youcompleteme = 0
 let g:airline#extensions#tabline#enabled = 1
 
 let g:airline#extensions#tabline#fnamemod = ':p:.'
@@ -244,21 +245,25 @@ set cmdheight=1
 set updatetime=300
 set shortmess+=c
 
-if has("patch-8.1.1564")
+if has("nvim-0.5.0") || has("patch-8.1.1564")
   set signcolumn=number
 else
   set signcolumn=yes
 endif
 
-nnoremap <silent> <S-T> :call <SID>show_documentation()<CR>
+nnoremap <silent> T :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
   else
-    call CocAction('doHover')
+    execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 if exists('*complete_info')
   inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -282,6 +287,8 @@ if has('nvim')
 else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
+
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 "let g:tagbar_type_typescript = {
 "  \ 'ctagsbin' : 'tstags',
@@ -362,3 +369,6 @@ nnoremap <C-p> :Files<Cr>
 nnoremap <C-g> :Ag<Cr>
 
 let g:js_file_import_omit_semicolon = 0
+
+call coc#config('python', {'pythonPath': $PYENV_VIRTUAL_ENV})
+
