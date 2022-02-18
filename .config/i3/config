@@ -9,7 +9,7 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod4
+set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -43,6 +43,10 @@ bindsym $mod+F2 exec dmenu_run
 # backlight
 bindsym XF86MonBrightnessUp exec "~/.config/i3/bin/brightness.sh up"
 bindsym XF86MonBrightnessDown exec "~/.config/i3/bin/brightness.sh down"
+
+# backlight for hhkb
+bindsym $mod+Shift+a exec "~/.config/i3/bin/brightness.sh down"
+bindsym $mod+Shift+s exec "~/.config/i3/bin/brightness.sh up"
 
 # Audio
 
@@ -188,5 +192,6 @@ exec --no-startup-id fcitx -r
 exec --no-startup-id compton
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id feh --bg-scale ~/.config/i3/new_wall.png
+exec --no-startup-id nm-applet --no-agent
 #exec --no-startup-id conky -c ~/.config/conky/conkyrc -d
 #exec xwinwrap -g 1920x1080 -ni -s -st -sp -b -nf -ov -- gifview -w WID ~/.config/i3/giphy.gif -a
