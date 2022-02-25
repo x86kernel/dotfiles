@@ -372,3 +372,5 @@ let g:js_file_import_omit_semicolon = 0
 
 call coc#config('python', {'pythonPath': $PYENV_VIRTUAL_ENV})
 
+let g:AutoPairsShortcutFastWrap = '<C-e>'
+
