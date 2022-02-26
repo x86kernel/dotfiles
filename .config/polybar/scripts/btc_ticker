@@ -1,0 +1,8 @@
+#!/usr/bin/env python3
+
+import requests
+
+r = requests.get('https://api.binance.com/api/v3/avgPrice?symbol=BTCUSDT')
+ticker = r.json()
+
+print('%d USD' % float(ticker['price']))

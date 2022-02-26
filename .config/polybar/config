@@ -112,7 +112,7 @@ foreground = #4A2511
 
 modules-left = arrow-left-2 i3 arrow-right-2 title arrow-right-1_0
 modules-center = arrow-left-00 date arrow-right-0
-modules-right = arrow-left-6 eth arrow-left-5 cpu arrow-left-4 volume arrow-left-3 temperature arrow-left-0 wireless-network arrow-left-1 battery arrow-right-1
+modules-right = arrow-left-6 btc arrow-left-5 cpu arrow-left-4 volume arrow-left-3 temperature arrow-left-0 wireless-network arrow-left-1 battery arrow-right-1
 
 fixed-center = true
 
@@ -266,7 +266,7 @@ ramp-coreload-5 = ▆
 ramp-coreload-6 = ▇
 ramp-coreload-7 = █
 
-[module/eth]
+[module/btc]
 type = custom/script
 interval = 60
 
@@ -276,9 +276,9 @@ tail = true
 
 label = %{T3}%{T-} %output:0:10%
 
-exec = ~/.config/polybar/scripts/eth_ticker
+exec = ~/.config/polybar/scripts/btc_ticker
 
-click-left = ~/.config/polybar/scripts/eth_ticker
+click-left = ~/.config/polybar/scripts/btc_ticker
 
 [module/filesystem]
 type = internal/fs
